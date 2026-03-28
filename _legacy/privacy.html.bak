@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — RoleKeeper</title>
+<meta name="description" content="RoleKeeper Privacy Policy — what we collect, what we don't, and how your data is handled.">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script data-cfasync="false">
+(function(){try{var t=localStorage.getItem('rk_t')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<style>
+:root{
+  --mb:#0EA5E9;--mp:#D946EF;
+  --mg:linear-gradient(135deg,#0EA5E9,#D946EF);
+  --fh:'Outfit',sans-serif;--fb:'Outfit',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+  --fs:'Lora',serif;
+}
+[data-theme="light"]{
+  --bg:#ece9ff;--t1:#0a0a1e;--t2:#4a4a6a;--t3:#9090b8;
+  --border:rgba(14,165,233,.14);
+  --gc:rgba(255,255,255,.6);--gnav:rgba(240,238,255,.9);
+  --glow:rgba(14,165,233,.2);
+}
+[data-theme="dark"]{
+  --bg:#07071a;--t1:#f0f0ff;--t2:#8888bb;--t3:#4a4a7a;
+  --border:rgba(14,165,233,.1);
+  --gc:rgba(10,10,30,.6);--gnav:rgba(7,7,26,.9);
+  --glow:rgba(14,165,233,.25);
+}
+[data-theme="arcade"]{
+  --bg:#05051a;--t1:#e8e8ff;--t2:#7777cc;--t3:#3a3a7a;
+  --border:rgba(0,245,255,.18);
+  --gc:rgba(5,5,30,.55);--gnav:rgba(5,5,26,.92);
+  --glow:rgba(0,245,255,.35);
+  --mb:#00f5ff;--mp:#ff2d78;--mg:linear-gradient(135deg,#00f5ff,#ff2d78);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--fb);background:var(--bg);color:var(--t1);
+  overflow-x:hidden;font-size:17px;line-height:1.8;font-weight:500;
+  padding-bottom:60px;
+  transition:background .4s,color .4s;
+}
+
+/* AURORA */
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.aob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.12;animation:drift 15s ease-in-out infinite alternate;}
+.a1{width:600px;height:600px;background:#0EA5E9;top:-200px;left:-200px;}
+.a2{width:500px;height:500px;background:#D946EF;bottom:-150px;right:-150px;animation-delay:-5s;}
+@keyframes drift{0%{transform:translate(0,0);}100%{transform:translate(40px,30px) scale(1.1);}}
+
+/* TOPBAR */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:var(--gnav);backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--border);
+  padding:14px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.topbar-logo img{height:36px;width:auto;object-fit:contain;}
+.topbar-back{
+  font-family:var(--fm);font-size:10px;letter-spacing:1px;
+  color:var(--t3);text-decoration:none;
+  padding:8px 16px;border:1px solid var(--border);
+  transition:all .2s;
+}
+.topbar-back:hover{border-color:var(--mb);color:var(--mb);}
+
+/* CONTENT */
+.wrap{
+  position:relative;z-index:10;
+  max-width:740px;margin:0 auto;
+  padding:60px 24px;
+}
+.policy-tag{
+  font-family:var(--fm);font-size:10px;letter-spacing:2px;
+  color:var(--mb);margin-bottom:16px;display:block;
+}
+.policy-title{
+  font-family:var(--fh);font-size:clamp(32px,5vw,52px);
+  font-weight:900;letter-spacing:-1.5px;line-height:1.05;
+  margin-bottom:12px;
+}
+.policy-updated{
+  font-family:var(--fm);font-size:10px;color:var(--t3);
+  letter-spacing:1px;margin-bottom:48px;
+  padding-bottom:24px;border-bottom:1px solid var(--border);
+}
+h2{
+  font-family:var(--fh);font-size:20px;font-weight:800;
+  color:var(--t1);margin:40px 0 12px;
+  background:var(--mg);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;
+}
+p{color:var(--t2);margin-bottom:16px;}
+ul{color:var(--t2);padding-left:20px;margin-bottom:16px;}
+ul li{margin-bottom:8px;}
+strong{color:var(--t1);font-weight:700;}
+a{color:var(--mb);text-decoration:underline;text-underline-offset:3px;}
+.highlight-box{
+  background:var(--gc);backdrop-filter:blur(12px);
+  border:1px solid var(--border);border-radius:12px;
+  padding:24px 28px;margin:32px 0;
+  border-left:3px solid var(--mb);
+}
+.highlight-box p{margin:0;color:var(--t2);}
+.highlight-box strong{color:var(--mb);}
+
+/* ══ FOOTER ════════════════════════════════════════ */
+footer{background:var(--gc);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:60px;}
+.f-brand{font-family:var(--fh);font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.f-links{display:flex;gap:18px;flex-wrap:wrap;}
+.f-links a{font-family:var(--fm);font-size:9px;color:var(--t3);text-decoration:none;letter-spacing:1px;transition:color .2s;}
+.f-links a:hover{color:var(--mb);}
+.f-r{font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:1px;}
+.f-r span{color:var(--mb);}
+.logo-img-default,.logo-img-arcade{object-fit:contain;object-position:left center;}
+</style>
+</head>
+<body>
+<div class="aurora">
+  <div class="aob a1"></div>
+  <div class="aob a2"></div>
+</div>
+
+<nav class="topbar">
+  <a href="/" class="topbar-logo">
+    <img src="/assets/logo-default.png" class="logo-img-default" alt="RoleKeeper">
+    <img src="/assets/logo-arcade.png" class="logo-img-arcade" style="display:none;" alt="RoleKeeper">
+  </a>
+  <a href="/" class="topbar-back">← BACK TO HOME</a>
+</nav>
+
+<div class="wrap">
+  <span class="policy-tag">LEGAL</span>
+  <h1 class="policy-title">Privacy Policy</h1>
+  <div class="policy-updated">Last updated: March 2026 · RoleKeeper — rolekeeper.io</div>
+
+  <div class="highlight-box">
+    <p><strong>The short version:</strong> RoleKeeper in its current free tier stores everything in your browser. We don't have a server that holds your data. We don't sell anything. We don't track you beyond basic analytics. That's it.</p>
+  </div>
+
+  <h2>Who we are</h2>
+  <p>RoleKeeper is an independent project built by Adrian, a web developer based in Santo Domingo, Dominican Republic. You can reach us at <a href="mailto:support@rolekeeper.io">support@rolekeeper.io</a>.</p>
+
+  <h2>What data we collect</h2>
+  <p><strong>Free tier (current):</strong> Nothing leaves your device. All your roles, quests, logs, XP, and profile data are stored in your browser's <code>localStorage</code>. We have no access to this data. If you clear your browser storage, it's gone.</p>
+  <p><strong>Ko-fi donations:</strong> If you choose to support us via Ko-fi, your payment and personal information is handled entirely by Ko-fi and PayPal. We receive a notification that a donation was made. We do not receive or store your payment details.</p>
+  <p><strong>Analytics:</strong> We may use basic, privacy-respecting analytics (such as Cloudflare Web Analytics) to understand how many people visit the site. This does not track individuals, does not use cookies, and does not collect personal information.</p>
+  <p><strong>Email contact:</strong> If you email us at support@rolekeeper.io, we receive and store that email in our inbox. We use it only to respond to you.</p>
+
+  <h2>What we don't collect</h2>
+  <ul>
+    <li>We don't use advertising trackers or third-party marketing pixels</li>
+    <li>We don't sell your data to anyone, ever</li>
+    <li>We don't require an account — no name, email, or password is collected in the free tier</li>
+    <li>We don't store your prompts, AI outputs, or session logs on any server</li>
+  </ul>
+
+  <h2>Future Pro tier</h2>
+  <p>When we launch the Pro tier with cloud sync and accounts, this policy will be updated. At that point, data you choose to sync will be stored on our servers (via Supabase). You will be asked to accept updated terms before creating an account. Cloud sync is fully opt-in — the free local tier will always remain available.</p>
+
+  <h2>Cookies</h2>
+  <p>We use one item in <code>localStorage</code> to remember your theme preference (<code>rk_t</code>). This is not a tracking cookie — it's a preference saved locally in your browser that never leaves your device.</p>
+
+  <h2>Third-party services</h2>
+  <ul>
+    <li><strong>Cloudflare</strong> — hosts our site and provides basic analytics. <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">Cloudflare Privacy Policy →</a></li>
+    <li><strong>Ko-fi / PayPal</strong> — handles donations. We don't receive payment details. <a href="https://ko-fi.com/privacy" target="_blank">Ko-fi Privacy Policy →</a></li>
+    <li><strong>Google Fonts</strong> — loads typography. Google may log font requests. <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy →</a></li>
+  </ul>
+
+  <h2>Your rights</h2>
+  <p>Since all your data is stored locally in your browser, you have complete control over it at all times. You can export it using the Backup feature, delete it using Factory Reset in Settings, or clear it by clearing your browser storage. No request to us is needed.</p>
+
+  <h2>Children</h2>
+  <p>RoleKeeper is not directed at children under 13. We do not knowingly collect any information from children.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If we make significant changes — especially when we launch Pro accounts — we'll update the date at the top of this page and note the changes clearly. Continued use of the app after changes means you accept the updated policy.</p>
+
+
+  <h2>Accounts &amp; Authentication (coming with Pro)</h2>
+  <p>When we launch Pro accounts, we will collect:</p>
+  <ul>
+    <li><strong>Email address</strong> — used only for login and essential account communications. Never sold, never used for marketing unless you explicitly opt in.</li>
+    <li><strong>Password</strong> — stored as a secure hash using industry-standard encryption (bcrypt via Supabase). We never store plain text passwords and cannot recover them.</li>
+    <li><strong>Session tokens</strong> — stored securely to keep you logged in across devices.</li>
+    <li><strong>Synced data</strong> — roles, quests, logs, and profile data you choose to sync will be stored on our servers. You control what gets synced.</li>
+  </ul>
+  <p>This section will be updated with full details before accounts go live. You will be asked to accept the updated Privacy Policy before creating an account. <strong>Creating an account is entirely optional</strong> — the free local tier remains available without any account.</p>
+
+  <h2>Data deletion</h2>
+  <p><strong>Free tier:</strong> Clear your browser storage or use Factory Reset in Settings. Instant, complete, no request needed.</p>
+  <p><strong>Pro accounts (when launched):</strong> You will be able to delete your account and all associated data from your Settings page. Deletion will be permanent and processed within 30 days. To request deletion before that feature is built, email <a href="mailto:support@rolekeeper.io">support@rolekeeper.io</a>.</p>
+
+  <h2>Contact</h2>
+  <p>Questions, concerns, or feedback about this policy — email us directly at <a href="mailto:support@rolekeeper.io">support@rolekeeper.io</a>. We're a one-person team and we actually read every email.</p>
+</div>
+
+<script data-cfasync="false">
+// Logo swap on theme
+const t = document.documentElement.getAttribute('data-theme');
+if(t === 'arcade'){
+  document.querySelectorAll('.logo-img-default').forEach(el=>el.style.display='none');
+  document.querySelectorAll('.logo-img-arcade').forEach(el=>el.style.display='');
+}
+</script>
+<footer>
+  <div class="f-brand">
+    <img src="/assets/logo-default.png" class="logo-img-default" style="height:36px;width:auto;" alt="RoleKeeper">
+    <img src="/assets/logo-arcade.png" class="logo-img-arcade" style="display:none;height:28px;width:auto;" alt="RoleKeeper">
+  </div>
+  <div class="f-links">
+    <a href="#why">WHY</a><a href="#codex">CODEX</a><a href="#how">HOW</a>
+    <a href="#roadmap">ROADMAP</a><a href="mailto:support@rolekeeper.io">CONTACT</a><a href="/privacy">PRIVACY</a><a href="/terms">TERMS</a>
+    <a href="https://rolekeeper.quest" target="_blank">OPEN APP</a>
+  </div>
+  <div class="f-r">© 2026 <span>ROLEKEEPER</span></div>
+</footer>
+</body>
+</html>

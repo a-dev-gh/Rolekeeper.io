@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — RoleKeeper</title>
+<meta name="description" content="RoleKeeper Terms of Service — simple, honest, plain language.">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script data-cfasync="false">
+(function(){try{var t=localStorage.getItem('rk_t')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<style>
+:root{
+  --mb:#0EA5E9;--mp:#D946EF;
+  --mg:linear-gradient(135deg,#0EA5E9,#D946EF);
+  --fh:'Outfit',sans-serif;--fb:'Outfit',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+  --fs:'Lora',serif;
+}
+[data-theme="light"]{
+  --bg:#ece9ff;--t1:#0a0a1e;--t2:#4a4a6a;--t3:#9090b8;
+  --border:rgba(14,165,233,.14);
+  --gc:rgba(255,255,255,.6);--gnav:rgba(240,238,255,.9);
+}
+[data-theme="dark"]{
+  --bg:#07071a;--t1:#f0f0ff;--t2:#8888bb;--t3:#4a4a7a;
+  --border:rgba(14,165,233,.1);
+  --gc:rgba(10,10,30,.6);--gnav:rgba(7,7,26,.9);
+}
+[data-theme="arcade"]{
+  --bg:#05051a;--t1:#e8e8ff;--t2:#7777cc;--t3:#3a3a7a;
+  --border:rgba(0,245,255,.18);
+  --gc:rgba(5,5,30,.55);--gnav:rgba(5,5,26,.92);
+  --mb:#00f5ff;--mp:#ff2d78;--mg:linear-gradient(135deg,#00f5ff,#ff2d78);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--fb);background:var(--bg);color:var(--t1);
+  overflow-x:hidden;font-size:17px;line-height:1.8;font-weight:500;
+  padding-bottom:60px;
+  transition:background .4s,color .4s;
+}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.aob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.12;animation:drift 15s ease-in-out infinite alternate;}
+.a1{width:600px;height:600px;background:#0EA5E9;top:-200px;left:-200px;}
+.a2{width:500px;height:500px;background:#D946EF;bottom:-150px;right:-150px;animation-delay:-5s;}
+@keyframes drift{0%{transform:translate(0,0);}100%{transform:translate(40px,30px) scale(1.1);}}
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:var(--gnav);backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--border);
+  padding:14px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.topbar-logo img{height:36px;width:auto;object-fit:contain;}
+.topbar-back{
+  font-family:var(--fm);font-size:10px;letter-spacing:1px;
+  color:var(--t3);text-decoration:none;
+  padding:8px 16px;border:1px solid var(--border);
+  transition:all .2s;
+}
+.topbar-back:hover{border-color:var(--mb);color:var(--mb);}
+.wrap{
+  position:relative;z-index:10;
+  max-width:740px;margin:0 auto;
+  padding:60px 24px;
+}
+.policy-tag{
+  font-family:var(--fm);font-size:10px;letter-spacing:2px;
+  color:var(--mb);margin-bottom:16px;display:block;
+}
+.policy-title{
+  font-family:var(--fh);font-size:clamp(32px,5vw,52px);
+  font-weight:900;letter-spacing:-1.5px;line-height:1.05;
+  margin-bottom:12px;
+}
+.policy-updated{
+  font-family:var(--fm);font-size:10px;color:var(--t3);
+  letter-spacing:1px;margin-bottom:48px;
+  padding-bottom:24px;border-bottom:1px solid var(--border);
+}
+h2{
+  font-family:var(--fh);font-size:20px;font-weight:800;
+  color:var(--t1);margin:40px 0 12px;
+  background:var(--mg);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;
+}
+p{color:var(--t2);margin-bottom:16px;}
+ul{color:var(--t2);padding-left:20px;margin-bottom:16px;}
+ul li{margin-bottom:8px;}
+strong{color:var(--t1);font-weight:700;}
+a{color:var(--mb);text-decoration:underline;text-underline-offset:3px;}
+.highlight-box{
+  background:var(--gc);backdrop-filter:blur(12px);
+  border:1px solid var(--border);border-radius:12px;
+  padding:24px 28px;margin:32px 0;
+  border-left:3px solid var(--mb);
+}
+.highlight-box p{margin:0;color:var(--t2);}
+.highlight-box strong{color:var(--mb);}
+
+/* ══ FOOTER ════════════════════════════════════════ */
+footer{background:var(--gc);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:60px;}
+.f-brand{font-family:var(--fh);font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.f-links{display:flex;gap:18px;flex-wrap:wrap;}
+.f-links a{font-family:var(--fm);font-size:9px;color:var(--t3);text-decoration:none;letter-spacing:1px;transition:color .2s;}
+.f-links a:hover{color:var(--mb);}
+.f-r{font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:1px;}
+.f-r span{color:var(--mb);}
+.logo-img-default,.logo-img-arcade{object-fit:contain;object-position:left center;}
+</style>
+</head>
+<body>
+<div class="aurora">
+  <div class="aob a1"></div>
+  <div class="aob a2"></div>
+</div>
+
+<nav class="topbar">
+  <a href="/" class="topbar-logo">
+    <img src="/assets/logo-default.png" class="logo-img-default" alt="RoleKeeper">
+    <img src="/assets/logo-arcade.png" class="logo-img-arcade" style="display:none;" alt="RoleKeeper">
+  </a>
+  <a href="/" class="topbar-back">← BACK TO HOME</a>
+</nav>
+
+<div class="wrap">
+  <span class="policy-tag">LEGAL</span>
+  <h1 class="policy-title">Terms of Service</h1>
+  <div class="policy-updated">Last updated: March 2026 · RoleKeeper — rolekeeper.io</div>
+
+  <div class="highlight-box">
+    <p><strong>The short version:</strong> Use RoleKeeper to do good work. Don't abuse it. Your data is yours. We're one person building this — be reasonable and so will we.</p>
+  </div>
+
+  <h2>Acceptance of terms</h2>
+  <p>By using RoleKeeper (the website at rolekeeper.io, the app at rolekeeper.quest, or any related service), you agree to these terms. If you don't agree, please don't use the service.</p>
+  <p>We may update these terms as the product grows — especially when Pro accounts launch. We'll always note the date of the last update at the top of this page.</p>
+
+  <h2>The service</h2>
+  <p>RoleKeeper is a personal AI session workspace. It helps you organize roles, prompts, and session logs. The current free tier runs entirely in your browser — no account needed, no data sent to our servers.</p>
+  <p>RoleKeeper is in <strong>pre-alpha</strong>. This means features may change, things may break, and the experience is actively being developed. We'll always be transparent about what's live and what's coming.</p>
+
+  <h2>Your data</h2>
+  <p>In the free tier, all your data lives in your browser's local storage. <strong>It belongs entirely to you.</strong> We have no access to it, cannot recover it if lost, and cannot delete it on your behalf. Use the Export feature in Settings to back it up regularly.</p>
+  <p>When Pro accounts launch with cloud sync, you'll control what data you choose to sync. Your local data will always remain yours to export and delete.</p>
+
+  <h2>Acceptable use</h2>
+  <p>You agree not to use RoleKeeper to:</p>
+  <ul>
+    <li>Generate content that is illegal, harmful, abusive, or violates others' rights</li>
+    <li>Attempt to reverse-engineer, scrape, or exploit the service</li>
+    <li>Impersonate others or misrepresent your identity</li>
+    <li>Violate any applicable laws or regulations</li>
+  </ul>
+  <p>This is a tool to help you work better with AI. Use it for that.</p>
+
+  <h2>Donations and payments</h2>
+  <p>Donations through Ko-fi are voluntary and non-refundable unless otherwise required by law. Donations do not guarantee access to future features, though early supporters will be recognized when Pro launches.</p>
+  <p>When the Pro tier launches, it will have its own pricing and refund terms which will be presented clearly at the time of purchase.</p>
+
+
+  <h2>Accounts (coming with Pro)</h2>
+  <p>When Pro accounts launch, the following additional terms will apply:</p>
+  <ul>
+    <li><strong>Account creation</strong> — you must provide a valid email address and accept the updated Terms and Privacy Policy. You are responsible for keeping your login credentials secure.</li>
+    <li><strong>Subscription billing</strong> — Pro is a monthly subscription. You will be billed on the same date each month. Pricing will be shown clearly before you subscribe.</li>
+    <li><strong>Cancellation</strong> — you can cancel your Pro subscription at any time. You will retain Pro access until the end of your current billing period. No partial refunds for unused time.</li>
+    <li><strong>Data on cancellation</strong> — if you cancel Pro and return to the free tier, your synced data will remain accessible locally via export for 30 days, then deleted from our servers.</li>
+    <li><strong>Account suspension</strong> — we reserve the right to suspend accounts that violate these terms. We will always notify you before suspension unless the violation is severe.</li>
+    <li><strong>Account deletion</strong> — you can delete your account at any time from Settings. All your data will be permanently removed from our servers within 30 days.</li>
+  </ul>
+  <p>These terms will be presented in full before you create an account. <strong>Existing free tier users are not affected until they choose to create an account.</strong></p>
+
+  <h2>Subscriptions and refunds</h2>
+  <p>Monthly Pro subscriptions are billed automatically. You may cancel at any time — no questions asked. Refunds are not provided for partial months already billed, except where required by applicable law.</p>
+  <p>If you experience a technical issue that prevented you from using the service for an extended period, contact us at <a href="mailto:support@rolekeeper.io">support@rolekeeper.io</a> and we will review it case by case. We are one person and we will be reasonable.</p>
+
+  <h2>Intellectual property</h2>
+  <p>The RoleKeeper name, logo, design, and code are the property of Adrian (the developer). You may not reproduce or redistribute them without permission.</p>
+  <p>The content you create using RoleKeeper — your roles, prompts, and logs — is entirely yours. We claim no ownership over it.</p>
+
+  <h2>Disclaimer of warranties</h2>
+  <p>RoleKeeper is provided <strong>"as is"</strong> without any warranties, express or implied. We are a one-person pre-alpha project. We do our best but cannot guarantee the service will be error-free, uninterrupted, or that your data will never be lost.</p>
+  <p><strong>Always export your backup regularly.</strong> We are not responsible for data loss caused by browser storage being cleared, device failure, or any other reason.</p>
+
+  <h2>Limitation of liability</h2>
+  <p>To the maximum extent permitted by law, RoleKeeper and its developer shall not be liable for any indirect, incidental, or consequential damages arising from your use of the service, including loss of data or profits.</p>
+
+  <h2>Disputes</h2>
+  <p>We are a small independent project and we prefer good-faith communication over legal proceedings. If you have a dispute or concern, please email us first at <a href="mailto:support@rolekeeper.io">support@rolekeeper.io</a> and we will do our best to resolve it directly. Formal jurisdiction will be updated when we establish a legal entity.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about these terms? Email us at <a href="mailto:support@rolekeeper.io">support@rolekeeper.io</a>. We're a one-person team and we read every message.</p>
+</div>
+
+<script data-cfasync="false">
+const t = document.documentElement.getAttribute('data-theme');
+if(t === 'arcade'){
+  document.querySelectorAll('.logo-img-default').forEach(el=>el.style.display='none');
+  document.querySelectorAll('.logo-img-arcade').forEach(el=>el.style.display='');
+}
+</script>
+<footer>
+  <div class="f-brand">
+    <img src="/assets/logo-default.png" class="logo-img-default" style="height:36px;width:auto;" alt="RoleKeeper">
+    <img src="/assets/logo-arcade.png" class="logo-img-arcade" style="display:none;height:28px;width:auto;" alt="RoleKeeper">
+  </div>
+  <div class="f-links">
+    <a href="#why">WHY</a><a href="#codex">CODEX</a><a href="#how">HOW</a>
+    <a href="#roadmap">ROADMAP</a><a href="mailto:support@rolekeeper.io">CONTACT</a><a href="/privacy">PRIVACY</a><a href="/terms">TERMS</a>
+    <a href="https://rolekeeper.quest" target="_blank">OPEN APP</a>
+  </div>
+  <div class="f-r">© 2026 <span>ROLEKEEPER</span></div>
+</footer>
+</body>
+</html>

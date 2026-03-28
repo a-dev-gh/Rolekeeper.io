@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoleKeeper — Your Personal AI Workspace</title>
+<meta name="description" content="Structure your AI sessions. Log your progress. Level up your craft. Start free.">
+<link rel="icon" id="favicon" href="/assets/favicon.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<meta property="og:title" content="RoleKeeper — Your Personal AI Workspace">
+<meta property="og:description" content="Structure your AI sessions. Log your progress. Level up your craft. Start free.">
+<meta property="og:image" content="/assets/logo-default.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script data-cfasync="false">
+// Apply saved theme immediately to prevent flash
+(function(){try{var t=localStorage.getItem('rk_t')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<style>
+/* ══ TOKENS ═══════════════════════════════════════════ */
+:root{
+  --mb:#0EA5E9;--mp:#D946EF;
+  --mg:linear-gradient(135deg,#0EA5E9,#D946EF);
+  --fh:'Outfit',sans-serif;
+  --fs:'Lora',serif;
+  --fb:'Outfit',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+  --fpx:'Share Tech Mono',monospace;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --dock-h:68px;
+}
+[data-theme="light"]{
+  --bg:#ece9ff;--t1:#0a0a1e;--t2:#4a4a6a;--t3:#9090b8;
+  --border:rgba(14,165,233,.14);
+  --gc:rgba(255,255,255,.5);--gnav:rgba(240,238,255,.85);
+  --glow:rgba(14,165,233,.28);--glow2:rgba(217,70,239,.22);
+  --ob1:#0EA5E9;--ob2:#D946EF;--ob3:#7c3aed;--ob4:#06b6d4;
+  --obop:.2;--asp:13s;
+  --sc:rgba(255,255,255,.65);--sch:rgba(255,255,255,.8);
+  --scard:rgba(255,255,255,.75);--sin:rgba(240,238,255,.9);
+  --pa:rgba(14,165,233,.1);--pdone:#0EA5E9;
+  --green:#10b981;--yellow:#f59e0b;--red:#ef4444;
+  --lava1:#0EA5E9;--lava2:#D946EF;--lava3:#7c3aed;
+}
+[data-theme="dark"]{
+  --bg:#07071a;--t1:#f0f0ff;--t2:#8888bb;--t3:#4a4a7a;
+  --border:rgba(14,165,233,.1);
+  --gc:rgba(10,10,30,.6);--gnav:rgba(7,7,26,.88);
+  --glow:rgba(14,165,233,.32);--glow2:rgba(217,70,239,.26);
+  --ob1:#0EA5E9;--ob2:#D946EF;--ob3:#6d28d9;--ob4:#0891b2;
+  --obop:.11;--asp:15s;
+  --sc:rgba(7,7,26,.75);--sch:rgba(10,10,30,.9);
+  --scard:rgba(12,12,32,.85);--sin:rgba(5,5,20,.75);
+  --pa:rgba(14,165,233,.08);--pdone:#0EA5E9;
+  --green:#34d399;--yellow:#fbbf24;--red:#f87171;
+  --lava1:#0EA5E9;--lava2:#D946EF;--lava3:#6d28d9;
+}
+[data-theme="arcade"]{
+  --bg:#05051a;--t1:#e8e8ff;--t2:#7777cc;--t3:#3a3a7a;
+  --border:rgba(0,245,255,.18);
+  --gc:rgba(5,5,30,.55);--gnav:rgba(5,5,26,.92);
+  --glow:rgba(0,245,255,.4);--glow2:rgba(255,45,120,.3);
+  --ob1:#00f5ff;--ob2:#ff2d78;--ob3:#c555ff;--ob4:#ffe600;
+  --obop:.14;--asp:5s;
+  --mb:#00f5ff;--mp:#ff2d78;--mg:linear-gradient(135deg,#00f5ff,#ff2d78);
+  --sc:rgba(0,0,20,.82);--sch:rgba(5,5,30,.95);
+  --scard:rgba(5,5,25,.9);--sin:rgba(2,2,15,.82);
+  --pa:rgba(0,245,255,.08);--pdone:#00f5ff;
+  --green:#39ff14;--yellow:#ffe600;--red:#ff4444;
+  --lava1:#00f5ff;--lava2:#ff2d78;--lava3:#c555ff;
+  --fh:'Share Tech Mono',monospace;--fs:'Share Tech Mono',monospace;
+}
+
+/* ══ BASE ════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-bottom:calc(var(--dock-h) + 16px);}
+body{
+  font-family:var(--fb);background:var(--bg);color:var(--t1);
+  overflow-x:hidden;padding-bottom:calc(var(--dock-h) + 80px);
+  transition:background .5s var(--ease),color .4s var(--ease);
+}
+[data-theme="arcade"] body::before{
+  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);
+}
+
+/* ══ AURORA ══════════════════════════════════════════ */
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.aob{position:absolute;border-radius:50%;filter:blur(90px);opacity:var(--obop);animation:drift var(--asp) ease-in-out infinite alternate;}
+.a1{width:700px;height:700px;background:var(--ob1);top:-200px;left:-200px;}
+.a2{width:600px;height:600px;background:var(--ob2);bottom:-150px;right:-150px;animation-delay:calc(var(--asp)*-.3);}
+.a3{width:500px;height:500px;background:var(--ob3);top:40%;left:35%;animation-delay:calc(var(--asp)*-.6);}
+.a4{width:380px;height:380px;background:var(--ob4);top:15%;right:8%;animation-delay:calc(var(--asp)*-.15);}
+@keyframes drift{
+  0%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(55px,-45px) scale(1.18);}
+  66%{transform:translate(-38px,55px) scale(.9);}
+  100%{transform:translate(28px,32px) scale(1.12);}
+}
+
+/* ══ PARTICLES (arcade) ══════════════════════════════ */
+#pts{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden;display:none;}
+[data-theme="arcade"] #pts{display:block;}
+.pt{position:absolute;border-radius:50%;animation:ptf linear infinite;opacity:0;}
+@keyframes ptf{0%{transform:translateY(100vh);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateY(-10vh) translateX(var(--dx));opacity:0;}}
+
+/* All content above aurora */
+header,.hero,.strip,section,footer{position:relative;z-index:10;}
+
+/* ══ BOTTOM DOCK NAV ════════════════════════════════ */
+.dock-outer{
+  position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+  z-index:200;width:min(680px,calc(100vw - 24px));
+}
+/* Lava lamp container */
+.dock-lava{
+  position:absolute;inset:0;border-radius:20px;
+  overflow:hidden;pointer-events:none;
+}
+.lava-blob{
+  position:absolute;border-radius:50%;
+  filter:blur(28px);opacity:.6;
+  animation:lavaMove var(--lava-dur,8s) ease-in-out infinite alternate;
+}
+.lb1{width:120px;height:60px;background:var(--lava1);bottom:-10px;left:10%;animation-duration:7s;}
+.lb2{width:100px;height:50px;background:var(--lava2);bottom:-10px;left:40%;animation-duration:9s;animation-delay:-3s;}
+.lb3{width:80px;height:45px;background:var(--lava3);bottom:-10px;right:15%;animation-duration:6s;animation-delay:-5s;}
+@keyframes lavaMove{
+  0%{transform:translateX(0) translateY(0) scale(1);}
+  50%{transform:translateX(30px) translateY(-8px) scale(1.2);}
+  100%{transform:translateX(-20px) translateY(-4px) scale(.85);}
+}
+/* Glass dock */
+.dock{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--gnav);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:8px 12px;
+  box-shadow:0 8px 32px rgba(0,0,0,.18),0 0 0 1px rgba(255,255,255,.06),inset 0 1px 0 rgba(255,255,255,.12);
+  position:relative;z-index:1;
+  gap:4px;
+}
+/* Logo in dock */
+.dock-logo{
+  display:flex;align-items:center;gap:8px;
+  text-decoration:none;color:var(--t1);
+  font-family:var(--fh);font-size:15px;font-weight:800;
+  padding:6px 10px;flex-shrink:0;
+}
+.dock-mark{
+  width:22px;height:22px;flex-shrink:0;
+  background:var(--mg);
+  clip-path:polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%);
+  animation:markGlow 3s ease-in-out infinite;
+}
+@keyframes markGlow{0%,100%{filter:drop-shadow(0 0 4px var(--glow));}50%{filter:drop-shadow(0 0 12px var(--glow)) drop-shadow(0 0 20px var(--glow2));}}
+/* Nav links */
+.dock-links{display:flex;align-items:center;gap:2px;flex:1;justify-content:center;}
+.dock-link{
+  font-family:var(--fm);font-size:10px;letter-spacing:.8px;
+  color:var(--t3);text-decoration:none;
+  padding:8px 12px;border-radius:12px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  transition:all .25s;position:relative;
+}
+.dock-link .di{font-size:16px;line-height:1;}
+.dock-link .dl{font-size:8px;letter-spacing:1px;}
+.dock-link:hover{color:var(--mb);background:var(--pa);}
+.dock-link.active{color:var(--mb);background:var(--pa);}
+.dock-link.active::after{
+  content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);
+  width:16px;height:2px;background:var(--mg);border-radius:1px;
+}
+/* Theme orbs in dock */
+.dock-orbs{display:flex;gap:7px;align-items:center;padding:0 8px;flex-shrink:0;}
+.d-orb{
+  width:11px;height:11px;border-radius:50%;border:none;cursor:pointer;
+  transition:all .25s;position:relative;
+}
+.d-orb::before{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid transparent;transition:all .25s;}
+.d-orb.on::before{border-color:var(--t1);box-shadow:0 0 8px currentColor;}
+.d-orb.on{transform:scale(1.2);}
+.dorb-l{background:linear-gradient(135deg,#bae6fd,#f0abfc);}
+.dorb-d{background:linear-gradient(135deg,#1e3a5f,#4a1060);}
+.dorb-a{background:linear-gradient(135deg,#00f5ff,#ff2d78);animation:orbspin 2s linear infinite;}
+@keyframes orbspin{to{filter:hue-rotate(360deg);}}
+/* CTA in dock */
+.dock-login{
+  font-family:var(--fm);font-size:10px;letter-spacing:1px;
+  padding:8px 14px;background:transparent;
+  border:1px solid var(--border);color:var(--t3);
+  cursor:not-allowed;text-decoration:none;
+  transition:all .25s;flex-shrink:0;white-space:nowrap;
+  position:relative;
+}
+.dock-login::after{
+  content:'SOON';position:absolute;top:-8px;right:-4px;
+  font-size:7px;background:var(--mp);color:#fff;
+  padding:1px 4px;border-radius:3px;letter-spacing:.5px;
+}
+.dock-cta{
+  font-family:var(--fm);font-size:10px;font-weight:600;
+  letter-spacing:1px;padding:9px 16px;
+  background:var(--mg);color:#fff;border:none;
+  cursor:pointer;text-decoration:none;
+  clip-path:polygon(7px 0%,100% 0%,calc(100% - 7px) 100%,0% 100%);
+  box-shadow:0 0 20px var(--glow);
+  transition:all .25s;flex-shrink:0;white-space:nowrap;
+}
+.dock-cta:hover{filter:brightness(1.15);box-shadow:0 0 30px var(--glow),0 0 50px var(--glow2);}
+
+/* ══ HERO ════════════════════════════════════════════ */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 24px 60px;text-align:center;
+}
+.h-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--fm);font-size:10px;color:var(--mb);
+  background:var(--gc);backdrop-filter:blur(12px);
+  border:1px solid rgba(14,165,233,.3);
+  padding:5px 16px;margin-bottom:36px;letter-spacing:1px;
+  animation:fadeUp .5s ease forwards;
+  box-shadow:0 0 20px var(--glow);
+}
+.h-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.6);opacity:.6;}}
+.h-title{
+  font-family:var(--fh);font-size:clamp(44px,8vw,94px);
+  font-weight:900;line-height:1.01;letter-spacing:-3px;
+  margin-bottom:16px;animation:fadeUp .5s ease forwards .1s;opacity:0;
+}
+[data-theme="arcade"] .h-title{letter-spacing:3px;}
+.h-title .mg{
+  background:var(--mg);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 30px var(--glow)) drop-shadow(0 0 60px var(--glow2));
+}
+.h-title .soft{
+  font-family:var(--fs);font-style:italic;font-weight:400;
+  display:block;font-size:clamp(36px,6.5vw,78px);
+  color:var(--t2);letter-spacing:-1px;
+}
+[data-theme="arcade"] .h-title .soft{font-style:normal;font-family:var(--fpx);color:var(--mp);letter-spacing:2px;}
+.h-sub{
+  font-size:clamp(15px,2vw,18px);color:var(--t2);
+  max-width:500px;line-height:1.8;margin:0 auto 48px;
+  animation:fadeUp .5s ease forwards .2s;opacity:0;
+}
+.h-sub strong{color:var(--t1);font-weight:600;}
+.h-acts{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  justify-content:center;margin-bottom:72px;
+  animation:fadeUp .5s ease forwards .3s;opacity:0;
+}
+.btn-mg{
+  font-family:var(--fm);font-size:12px;font-weight:600;
+  letter-spacing:1px;padding:13px 28px;
+  background:var(--mg);color:#fff;border:none;
+  cursor:pointer;text-decoration:none;transition:all .3s;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  box-shadow:0 4px 24px var(--glow);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-mg:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 8px 32px var(--glow),0 0 40px var(--glow2);}
+.btn-ghost{
+  font-family:var(--fm);font-size:12px;letter-spacing:1px;
+  padding:13px 28px;background:var(--gc);backdrop-filter:blur(12px);
+  color:var(--t2);border:1px solid var(--border);cursor:pointer;
+  text-decoration:none;transition:all .3s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-ghost:hover{border-color:var(--mp);color:var(--mp);box-shadow:0 0 20px var(--glow2);}
+
+/* ══ SIMULATION ══════════════════════════════════════ */
+.sim-wrap{
+  width:100%;max-width:900px;margin:0 auto;
+  animation:fadeUp .6s ease forwards .4s;position:relative;
+}
+.sim-aura{
+  position:absolute;inset:-20px;pointer-events:none;border-radius:20px;
+  background:radial-gradient(ellipse at 30% 50%,var(--glow) 0%,transparent 55%),
+             radial-gradient(ellipse at 70% 50%,var(--glow2) 0%,transparent 55%);
+  filter:blur(30px);
+}
+.sim-frame{
+  background:var(--sc);backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.1);
+  position:relative;z-index:1;
+}
+.sim-chrome{
+  background:var(--sch);padding:10px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.sdots{display:flex;gap:6px;}
+.sd{width:10px;height:10px;border-radius:50%;}
+.sd-r{background:#ff5f57;}.sd-y{background:#febc2e;}.sd-g{background:#28c840;}
+.surl{flex:1;background:var(--sin);padding:5px 12px;font-family:var(--fm);font-size:11px;color:var(--t3);max-width:240px;}
+.s-tag{font-family:var(--fm);font-size:9px;letter-spacing:1px;color:var(--mb);border:1px solid rgba(14,165,233,.3);padding:2px 10px;background:rgba(14,165,233,.05);}
+/* App nav */
+.sim-anav{display:flex;background:var(--sch);border-bottom:1px solid var(--border);}
+.sn{flex:1;padding:7px 4px;text-align:center;font-family:var(--fm);font-size:9px;letter-spacing:.8px;color:var(--t3);border-right:1px solid var(--border);transition:all .3s;}
+.sn:last-child{border-right:none;}
+.sn.on{color:var(--mb);background:var(--pa);box-shadow:inset 0 -2px 0 var(--mb);}
+/* Step pills */
+.sim-pills{display:flex;margin:14px 14px 0;border:1px solid var(--border);overflow:hidden;background:var(--sin);}
+.sp{flex:1;padding:7px 4px;text-align:center;font-family:var(--fm);font-size:9px;letter-spacing:.5px;color:var(--t3);border-right:1px solid var(--border);transition:all .4s;}
+.sp:last-child{border-right:none;}
+.sp.done{color:var(--pdone);}
+.sp.act{color:var(--mb);background:var(--pa);box-shadow:inset 0 -2px 0 var(--mb);}
+/* Cards */
+.sim-body{padding:14px;min-height:270px;}
+.sc{background:var(--scard);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;padding:14px;display:none;animation:sf .35s ease;}
+.sc.show{display:block;}
+@keyframes sf{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.slbl{font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:2px;margin-bottom:10px;}
+/* Step 1 */
+.s-input{background:var(--sin);border:1px solid rgba(14,165,233,.3);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--t1);font-family:var(--fb);min-height:42px;display:flex;align-items:center;box-shadow:0 0 12px var(--glow);}
+.cursor{display:inline-block;width:2px;height:14px;background:var(--mb);margin-left:2px;animation:blink 1s step-end infinite;vertical-align:middle;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+/* Step 2 */
+.s-roles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.s-role{background:var(--sin);border:1px solid var(--border);border-radius:8px;padding:12px 8px;text-align:center;transition:all .3s;}
+.s-role.sel{border-color:var(--mb);background:rgba(14,165,233,.07);box-shadow:0 0 16px var(--glow),inset 0 0 20px rgba(14,165,233,.04);}
+.s-role-ico{font-size:20px;display:block;margin-bottom:5px;}
+.s-role-nm{font-family:var(--fm);font-size:9px;color:var(--t2);letter-spacing:1px;}
+.s-role.sel .s-role-nm{color:var(--mb);}
+/* Step 3 — real app layout */
+.s3-selected{
+  background:var(--sin);border:1px solid rgba(14,165,233,.3);
+  border-radius:8px;padding:10px 12px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;
+}
+.s3-qname{font-family:var(--fm);font-size:11px;color:var(--mb);letter-spacing:1px;}
+.s3-expand{font-family:var(--fm);font-size:9px;color:var(--t3);}
+.s3-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.s3-col-label{font-family:var(--fm);font-size:8px;color:var(--t3);letter-spacing:2px;margin-bottom:5px;}
+.s3-col-val{background:var(--sin);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--t2);}
+.s3-divider{font-family:var(--fm);font-size:8px;color:var(--t3);letter-spacing:2px;margin:8px 0 5px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+.s3-template{
+  background:var(--sin);border:1px solid var(--border);
+  border-radius:6px;padding:8px 10px;font-family:var(--fm);
+  font-size:9px;color:var(--t2);line-height:1.7;margin-bottom:8px;
+}
+.s3-assembled{
+  background:rgba(14,165,233,.05);
+  border:1px solid rgba(14,165,233,.25);
+  border-radius:6px;padding:8px 10px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:8px;
+}
+.s3-assembled-text{font-family:var(--fm);font-size:9px;color:var(--t1);line-height:1.7;flex:1;}
+.s3-copy{
+  font-family:var(--fm);font-size:8px;color:var(--mb);
+  background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);
+  padding:3px 8px;cursor:default;white-space:nowrap;flex-shrink:0;
+}
+/* Step 4 — full log layout */
+.s4-section-lbl{font-family:var(--fm);font-size:8px;color:var(--t3);letter-spacing:2px;margin-bottom:5px;display:flex;align-items:center;gap:6px;}
+.s4-section-lbl::before{content:'▸';color:var(--mb);}
+.s4-prompt-box{background:var(--sin);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:var(--fm);font-size:9px;color:var(--t2);line-height:1.6;margin-bottom:10px;max-height:52px;overflow:hidden;position:relative;}
+.s4-prompt-box::after{content:'';position:absolute;bottom:0;left:0;right:0;height:16px;background:linear-gradient(transparent,var(--sin));}
+.s4-output{background:var(--sin);border:1px dashed rgba(14,165,233,.25);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--t3);font-style:italic;margin-bottom:10px;min-height:36px;}
+.s4-notes{background:var(--sin);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--t3);font-style:italic;margin-bottom:10px;}
+.s4-attachments{display:flex;gap:6px;margin-bottom:10px;}
+.s4-att-btn{font-family:var(--fm);font-size:8px;color:var(--t3);border:1px solid var(--border);padding:3px 8px;letter-spacing:1px;background:var(--sin);}
+.s4-rating-row{display:flex;align-items:center;gap:6px;margin-bottom:10px;}
+.s4-rating-lbl{font-family:var(--fm);font-size:8px;color:var(--t3);letter-spacing:1px;}
+.s4-stars{color:var(--yellow);font-size:14px;letter-spacing:3px;}
+.s4-save-btn{
+  width:100%;padding:10px;text-align:center;
+  font-family:var(--fm);font-size:10px;letter-spacing:2px;
+  color:var(--mp);border:1px solid rgba(217,70,239,.4);
+  background:rgba(217,70,239,.06);
+  animation:savePulse 2s ease-in-out infinite;
+}
+@keyframes savePulse{0%,100%{box-shadow:0 0 8px rgba(217,70,239,.2);}50%{box-shadow:0 0 20px rgba(217,70,239,.4),0 0 40px rgba(217,70,239,.15);}}
+.xp-pop-wrap{position:relative;height:0;overflow:visible;pointer-events:none;}
+.xp-pop{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--fm);font-weight:700;font-size:22px;color:var(--green);letter-spacing:2px;text-shadow:0 0 20px var(--green),0 0 40px rgba(16,185,129,.5);white-space:nowrap;opacity:0;animation:xpFloat 1.8s ease forwards;}
+.xp-level{position:absolute;left:50%;font-family:var(--fm);font-size:10px;letter-spacing:2px;color:var(--mb);white-space:nowrap;opacity:0;animation:xpFloat 1.8s ease forwards .3s;text-shadow:0 0 12px var(--glow);}
+@keyframes xpFloat{0%{opacity:0;transform:translateX(-50%) translateY(0) scale(.6);}20%{opacity:1;transform:translateX(-50%) translateY(-10px) scale(1.2);}60%{opacity:1;transform:translateX(-50%) translateY(-40px) scale(1);}100%{opacity:0;transform:translateX(-50%) translateY(-70px) scale(.8);}}
+
+/* ══ STRIP ═══════════════════════════════════════════ */
+.strip{
+  padding:14px 24px;background:var(--gc);backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;
+}
+.strip-i{font-family:var(--fm);font-size:10px;color:var(--t3);display:flex;align-items:center;gap:7px;letter-spacing:1px;transition:color .2s;}
+.strip-i:hover{color:var(--mb);}
+.strip-i span{color:var(--t2);}
+
+/* ══ SHARED SECTION ══════════════════════════════════ */
+section{padding:90px 24px;}
+.sec{max-width:1080px;margin:0 auto;}
+.stag{font-family:var(--fm);font-size:10px;color:var(--mb);letter-spacing:3px;margin-bottom:14px;display:block;}
+.sh{font-family:var(--fh);font-size:clamp(28px,4vw,50px);font-weight:800;line-height:1.08;letter-spacing:-1.5px;margin-bottom:12px;}
+.sh .mg{background:var(--mg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ss{font-family:var(--fs);font-style:italic;font-size:17px;color:var(--t2);max-width:540px;line-height:1.8;margin-bottom:52px;}
+[data-theme="arcade"] .ss{font-family:var(--fm);font-style:normal;font-size:13px;}
+/* Glass card */
+.glass{background:var(--gc);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid var(--border);border-radius:16px;transition:all .3s var(--ease);}
+.glass:hover{border-color:rgba(14,165,233,.32);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.1),0 0 28px var(--glow),inset 0 1px 0 rgba(255,255,255,.14);}
+
+/* ══ WHY ═════════════════════════════════════════════ */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;}
+.why-card{padding:28px;position:relative;overflow:hidden;}
+.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--mg);opacity:0;transition:opacity .3s;}
+.why-card:hover::before{opacity:1;}
+.wico{width:42px;height:42px;background:rgba(14,165,233,.07);border:1px solid rgba(14,165,233,.18);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
+.wh{font-family:var(--fh);font-size:16px;font-weight:700;margin-bottom:7px;}
+.wp{font-size:14px;color:var(--t2);line-height:1.7;}
+.wbadge{display:inline-block;margin-top:12px;font-family:var(--fm);font-size:8px;color:var(--mp);border:1px solid rgba(217,70,239,.28);padding:2px 10px;letter-spacing:1px;background:rgba(217,70,239,.04);}
+
+/* ══ CODEX SHOWCASE ══════════════════════════════════ */
+.codex-sec{background:transparent;}
+.codex-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;}
+.codex-cards{display:flex;flex-direction:column;gap:12px;}
+.rk-card{
+  background:var(--gc);backdrop-filter:blur(14px);
+  border:1px solid var(--border);border-radius:12px;
+  padding:18px;position:relative;overflow:hidden;
+  transition:all .3s;cursor:default;
+}
+.rk-card:hover{transform:translateX(8px);border-color:rgba(14,165,233,.35);}
+/* The folded corner effect from real app */
+.rk-corner{
+  position:absolute;top:0;right:0;width:40px;height:40px;
+  background:var(--mg);
+  clip-path:polygon(100% 0,0 0,100% 100%);
+  opacity:.7;
+}
+.rk-card-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.rk-icon{
+  width:38px;height:38px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  flex-shrink:0;
+}
+.rk-name{font-family:var(--fh);font-size:14px;font-weight:700;}
+.rk-sub{font-family:var(--fm);font-size:8px;color:var(--t3);letter-spacing:1px;margin-top:2px;}
+.rk-desc{font-size:12px;color:var(--t2);line-height:1.5;margin-bottom:10px;}
+.rk-footer{display:flex;align-items:center;justify-content:space-between;}
+.rk-qcount{font-family:var(--fm);font-size:8px;color:var(--t3);letter-spacing:1px;}
+.rk-pill{font-family:var(--fm);font-size:8px;padding:2px 8px;border:1px solid;letter-spacing:1px;}
+
+/* ══ PROBLEM / SOLUTION ══════════════════════════════ */
+.ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px;}
+.ps-col{padding:26px;}
+.pslbl{font-family:var(--fm);font-size:9px;letter-spacing:2px;margin-bottom:18px;padding:4px 12px;display:inline-block;}
+.pslbl.bad{background:rgba(239,68,68,.07);color:var(--red);border:1px solid rgba(239,68,68,.2);}
+.pslbl.good{background:rgba(14,165,233,.07);color:var(--mb);border:1px solid rgba(14,165,233,.2);}
+.ps-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--t2);line-height:1.6;}
+.ps-item:last-child{border-bottom:none;}
+
+/* ══ STEPS ═══════════════════════════════════════════ */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:56px;}
+.steps::before{content:'';position:absolute;top:26px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,var(--border),rgba(14,165,233,.4),var(--border),transparent);}
+.step{padding:28px 18px;text-align:center;}
+.step-n{width:52px;height:52px;border-radius:50%;margin:0 auto 16px;background:var(--gc);backdrop-filter:blur(12px);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:18px;font-weight:800;color:var(--t3);position:relative;z-index:1;transition:all .3s;}
+.step:hover .step-n{border-color:var(--mb);color:var(--mb);box-shadow:0 0 18px var(--glow);background:rgba(14,165,233,.07);}
+.step-title{font-family:var(--fm);font-size:10px;font-weight:600;color:var(--mb);margin-bottom:7px;letter-spacing:2px;}
+.step-desc{font-size:13px;color:var(--t2);line-height:1.6;}
+
+/* ══ ROADMAP ════════════════════════════════════════ */
+.road-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.road-card{padding:20px;position:relative;}
+.rs{position:absolute;top:12px;right:12px;font-family:var(--fm);font-size:8px;letter-spacing:1px;padding:2px 8px;}
+.rs-live{background:rgba(16,185,129,.07);color:var(--green);border:1px solid rgba(16,185,129,.28);}
+.rs-soon{background:rgba(245,158,11,.07);color:var(--yellow);border:1px solid rgba(245,158,11,.28);}
+.rs-plan{background:rgba(255,255,255,.02);color:var(--t3);border:1px solid var(--border);}
+.rico{font-size:20px;margin-bottom:8px;display:block;}
+.rh{font-family:var(--fh);font-size:14px;font-weight:700;margin-bottom:5px;}
+.rp{font-size:13px;color:var(--t2);line-height:1.6;}
+
+/* ══ PRICING ════════════════════════════════════════ */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:640px;margin:0 auto;}
+.pc{padding:34px;}
+.pc.founder{border-color:rgba(14,165,233,.28);box-shadow:0 0 40px var(--glow),0 0 80px var(--glow2),inset 0 1px 0 rgba(255,255,255,.1);}
+.pt{font-family:var(--fm);font-size:10px;color:var(--mb);letter-spacing:3px;margin-bottom:8px;}
+.pp{font-family:var(--fh);font-size:52px;font-weight:900;line-height:1;margin-bottom:4px;}
+.pp.grad{background:var(--mg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.pper{font-size:13px;color:var(--t3);margin-bottom:22px;}
+.plist{list-style:none;margin-bottom:26px;}
+.plist li{font-size:14px;color:var(--t2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;}
+.plist li::before{content:'✓';color:var(--green);font-weight:700;}
+.pnote{font-family:var(--fm);font-size:8px;color:var(--t3);margin-top:-18px;margin-bottom:22px;letter-spacing:1px;}
+
+/* ══ ABOUT ══════════════════════════════════════════ */
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:72px;align-items:center;}
+.av-card{padding:30px;text-align:center;}
+.av{width:76px;height:76px;border-radius:50%;background:var(--mg);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:28px;font-weight:900;color:#fff;margin:0 auto 12px;box-shadow:0 0 30px var(--glow),0 0 60px var(--glow2);animation:avp 4s ease-in-out infinite;}
+@keyframes avp{0%,100%{box-shadow:0 0 30px var(--glow),0 0 60px var(--glow2);}50%{box-shadow:0 0 50px var(--glow),0 0 100px var(--glow2);}}
+.av-name{font-family:var(--fh);font-size:18px;font-weight:800;margin-bottom:3px;}
+.av-role{font-family:var(--fm);font-size:9px;color:var(--mb);letter-spacing:2px;}
+.av-flag{font-size:22px;margin-top:10px;display:block;}
+.av-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px;}
+.av-s{background:var(--sin);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:8px;padding:10px;}
+.av-n{font-family:var(--fh);font-size:20px;font-weight:800;color:var(--mb);display:block;}
+.av-l{font-family:var(--fm);font-size:8px;color:var(--t3);letter-spacing:1px;}
+
+
+/* ══ REVIEWS ════════════════════════════════════════ */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
+.review-card{padding:28px;text-align:left;}
+.rv-text{font-family:var(--fs);font-style:italic;font-size:16px;color:var(--t2);line-height:1.8;margin-bottom:20px;}
+.rv-author{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--t1);}
+.rv-role{font-family:var(--fm);font-size:9px;color:var(--mb);letter-spacing:1px;margin-top:3px;}
+@media(max-width:768px){.reviews-grid{grid-template-columns:1fr;}}
+
+/* ══ CTA ════════════════════════════════════════════ */
+.cta-sec{text-align:center;padding:90px 24px;}
+.cta-h{font-family:var(--fh);font-size:clamp(28px,5vw,54px);font-weight:900;letter-spacing:-1.5px;line-height:1.08;margin-bottom:14px;}
+.cta-s{font-family:var(--fs);font-style:italic;font-size:17px;color:var(--t2);margin-bottom:44px;}
+[data-theme="arcade"] .cta-s{font-family:var(--fm);font-style:normal;font-size:13px;}
+.cta-live-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.cta-note{font-family:var(--fm);font-size:9px;color:var(--t3);margin-top:10px;letter-spacing:1px;}
+.cta-alpha-note{margin-top:20px;font-family:var(--fm);font-size:10px;color:var(--t3);
+  letter-spacing:.8px;padding:10px 20px;border:1px solid var(--border);
+  background:var(--gc);backdrop-filter:blur(12px);display:inline-block;}
+.email-wrap{max-width:400px;margin:0 auto;}
+.email-row{display:flex;background:var(--gc);backdrop-filter:blur(16px);border:1px solid var(--border);overflow:hidden;box-shadow:0 0 28px var(--glow);transition:box-shadow .3s;}
+.email-row:focus-within{border-color:rgba(14,165,233,.4);box-shadow:0 0 40px var(--glow),0 0 60px var(--glow2);}
+.email-row input{flex:1;background:transparent;border:none;padding:13px 16px;font-size:14px;color:var(--t1);font-family:var(--fb);outline:none;}
+.email-row input::placeholder{color:var(--t3);}
+.email-row button{background:var(--mg);border:none;padding:13px 20px;font-family:var(--fm);font-size:11px;font-weight:600;letter-spacing:1px;color:#fff;cursor:pointer;transition:all .3s;white-space:nowrap;}
+.email-row button:hover{filter:brightness(1.15);}
+.cta-ok{display:none;font-family:var(--fm);font-size:11px;color:var(--green);padding:12px 24px;border:1px solid rgba(16,185,129,.3);margin-top:14px;letter-spacing:1px;background:rgba(16,185,129,.04);}
+
+/* ══ FOOTER ════════════════════════════════════════ */
+footer{background:var(--gc);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.f-brand{font-family:var(--fh);font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.f-mark{width:16px;height:16px;background:var(--mg);clip-path:polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%);}
+.f-links{display:flex;gap:18px;}
+.f-links a{font-family:var(--fm);font-size:9px;color:var(--t3);text-decoration:none;letter-spacing:1px;transition:color .2s;}
+.f-links a:hover{color:var(--mb);}
+.f-r{font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:1px;}
+.f-r span{color:var(--mb);}
+
+/* ══ PRE-ALPHA BANNER ════════════════════════════════ */
+.pa-bar{
+  position:relative;z-index:50;
+  width:100%;
+  background:linear-gradient(90deg,var(--mb),var(--mp));
+  color:#fff;text-align:center;
+  font-family:var(--fm);font-size:11px;letter-spacing:1.5px;
+  padding:9px 40px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  flex-wrap:wrap;
+}
+.pa-dot{width:6px;height:6px;border-radius:50%;background:#fff;
+  box-shadow:0 0 6px #fff;animation:pulse 1.5s ease-in-out infinite;flex-shrink:0;}
+.pa-bar a{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:2px;
+  transition:opacity .2s;}
+.pa-bar a:hover{opacity:.8;}
+.pa-bar .pa-close{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:transparent;border:none;color:rgba(255,255,255,.7);
+  cursor:pointer;font-size:16px;line-height:1;padding:4px;transition:color .2s;
+}
+.pa-bar .pa-close:hover{color:#fff;}
+
+/* ══ UTILS ══════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.rev{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;}
+.rev.in{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  .ps-grid,.about-grid,.price-grid,.codex-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;gap:14px;}
+  .steps::before{display:none;}
+  .dock-links .dock-link .dl{display:none;}
+  footer{flex-direction:column;text-align:center;}
+}
+@media(max-width:600px){
+  .steps{grid-template-columns:1fr;}
+  .h-title{letter-spacing:-1px;}
+  .s-roles{grid-template-columns:repeat(2,1fr);}
+  .dock{padding:6px 8px;gap:2px;}
+  .dock-links{gap:0;flex:1;}
+  .dock-links .dock-link{padding:5px 4px;min-width:0;}
+  .dock-link .di{font-size:13px;}
+  .dock-link .dl{font-size:7px;letter-spacing:.5px;}
+  .dock-logo-text{display:none;}
+  .dock-logo{padding:4px 6px;gap:5px;}
+  .dock-mark{width:18px;height:18px;}
+  .dock-login{
+  font-family:var(--fm);font-size:10px;letter-spacing:1px;
+  padding:8px 14px;background:transparent;
+  border:1px solid var(--border);color:var(--t3);
+  cursor:not-allowed;text-decoration:none;
+  transition:all .25s;flex-shrink:0;white-space:nowrap;
+  position:relative;
+}
+.dock-login::after{
+  content:'SOON';position:absolute;top:-8px;right:-4px;
+  font-size:7px;background:var(--mp);color:#fff;
+  padding:1px 4px;border-radius:3px;letter-spacing:.5px;
+}
+.dock-cta{display:none;}
+  .dock-orbs{gap:5px;padding:0 4px;}
+  .d-orb{width:9px;height:9px;}
+  .pa-bar{font-size:9px;padding:7px 36px;letter-spacing:.8px;}
+}
+@media(max-width:420px){
+  .dock-orbs{display:none;}
+  .dock-links .dock-link .dl{display:none;}
+  .dock-link .di{font-size:16px;}
+  .dock-links .dock-link{padding:6px 8px;}
+}
+</style>
+</head>
+<body>
+<div class="aurora"><div class="aob a1"></div><div class="aob a2"></div><div class="aob a3"></div><div class="aob a4"></div></div>
+<div id="pts"></div>
+
+<!-- ══ PRE-ALPHA BANNER ══ -->
+<div class="pa-bar" id="paBanner">
+  <div class="pa-dot"></div>
+  <span>⚔ PRE-ALPHA IS LIVE — Free to use, built in one week, data stays in your browser.</span>
+  <a href="https://rolekeeper.quest" target="_blank">Try it now →</a>
+  <button class="pa-close" onclick="document.getElementById('paBanner').style.display='none'" aria-label="Close">✕</button>
+</div>
+
+<!-- ══ BOTTOM DOCK ══ -->
+<nav class="dock-outer" id="dock">
+  <div class="dock-lava">
+    <div class="lava-blob lb1"></div>
+    <div class="lava-blob lb2"></div>
+    <div class="lava-blob lb3"></div>
+  </div>
+  <div class="dock">
+    <a href="/" class="dock-logo">
+      <img src="/assets/logo-default.png" class="logo-img-default" style="height:63px;width:auto;" alt="RoleKeeper">
+      <img src="/assets/logo-arcade.png" class="logo-img-arcade" style="display:none;height:63px;width:auto;" alt="RoleKeeper">
+    </a>
+    <div class="dock-links">
+      <a href="#why" class="dock-link" data-section="why"><span class="di">💡</span><span class="dl">WHY</span></a>
+      <a href="#codex" class="dock-link" data-section="codex"><span class="di">📋</span><span class="dl">CODEX</span></a>
+      <a href="#how" class="dock-link" data-section="how"><span class="di">📜</span><span class="dl">HOW</span></a>
+      <a href="#roadmap" class="dock-link" data-section="roadmap"><span class="di">🗺</span><span class="dl">ROAD</span></a>
+      <a href="#pricing" class="dock-link" data-section="pricing"><span class="di">💙</span><span class="dl">SUPPORT</span></a>
+      <a href="#about" class="dock-link" data-section="about"><span class="di">👤</span><span class="dl">ABOUT</span></a>
+    </div>
+    <div class="dock-orbs">
+      <button class="d-orb dorb-l on" id="tl" title="Light"></button>
+      <button class="d-orb dorb-d" id="td" title="Dark"></button>
+      <button class="d-orb dorb-a" id="ta" title="Arcade"></button>
+    </div>
+    <a href="#" class="dock-login" title="Coming Soon — Accounts launching with Pro">LOG IN</a>
+    <a href="https://rolekeeper.quest" class="dock-cta" target="_blank">OPEN APP →</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-logo-wrap" style="margin-bottom:28px;animation:fadeUp .4s ease forwards;opacity:0;">
+    <img src="/assets/logo-default.png" class="logo-img-default" style="height:72px;width:auto;" alt="RoleKeeper">
+    <img src="/assets/logo-arcade.png" class="logo-img-arcade" style="display:none;height:72px;width:auto;" alt="RoleKeeper">
+  </div>
+  <div class="h-badge"><div class="h-dot"></div>PRE-ALPHA · LIVE NOW · FREE · NO ACCOUNT NEEDED</div>
+  <h1 class="h-title">
+    Stop losing your<br>
+    <span class="soft">best AI work.</span>
+  </h1>
+  <p class="h-sub">
+    RoleKeeper gives every AI session a <strong>role, a prompt, and a log.</strong>
+    Your work stays. Your progress shows. You actually get better.
+  </p>
+  <div class="h-acts">
+    <a href="https://rolekeeper.quest" class="btn-mg" target="_blank">⚔ Try It Free</a>
+    <a href="#how" class="btn-ghost">See how it works →</a>
+  </div>
+
+  <!-- SIMULATION -->
+  <div class="sim-wrap">
+    <div class="sim-aura"></div>
+    <div class="sim-frame">
+      <div class="sim-chrome">
+        <div class="sdots"><div class="sd sd-r"></div><div class="sd sd-y"></div><div class="sd sd-g"></div></div>
+        <div class="surl">rolekeeper.quest</div>
+        <div class="s-tag" id="modeTag">LIGHT MODE</div>
+      </div>
+      <div class="sim-anav">
+        <div class="sn on">🕹 QUEST</div><div class="sn">📋 CODEX</div>
+        <div class="sn">⚔ GUILD</div><div class="sn">⚙ SETTINGS</div>
+      </div>
+      <div class="sim-pills">
+        <div class="sp act" id="sp1">① MISSION</div>
+        <div class="sp" id="sp2">② ROLE</div>
+        <div class="sp" id="sp3">③ QUEST</div>
+        <div class="sp" id="sp4">④ LOG</div>
+      </div>
+      <div class="sim-body">
+        <!-- Step 1 -->
+        <div class="sc show" id="sc1">
+          <div class="slbl">WHAT DO YOU NEED TO ACCOMPLISH?</div>
+          <div class="s-input" id="sfield"><span class="cursor"></span></div>
+        </div>
+        <!-- Step 2 -->
+        <div class="sc" id="sc2">
+          <div class="slbl">SELECT YOUR ROLE</div>
+          <div class="s-roles">
+            <div class="s-role"><span class="s-role-ico">🤖</span><div class="s-role-nm">ENGINEER</div></div>
+            <div class="s-role sel"><span class="s-role-ico">✍️</span><div class="s-role-nm">WRITER</div></div>
+            <div class="s-role"><span class="s-role-ico">📊</span><div class="s-role-nm">ANALYST</div></div>
+          </div>
+        </div>
+        <!-- Step 3 — real app layout -->
+        <div class="sc" id="sc3">
+          <div class="slbl">SELECT YOUR QUEST / PROMPT</div>
+          <div class="s3-selected">
+            <span class="s3-qname">✦ BLOG POST DRAFT</span>
+            <span class="s3-expand">[+] PREVIEW ▼</span>
+          </div>
+          <div class="s3-cols">
+            <div>
+              <div class="s3-col-label">YOUR QUEST / TASK</div>
+              <div class="s3-col-val">Write a blog post about AI productivity tools for 2026...</div>
+            </div>
+            <div>
+              <div class="s3-col-label">ROLE</div>
+              <div class="s3-col-val">✍️ Writer</div>
+            </div>
+          </div>
+          <div class="s3-divider">BASE TEMPLATE — READ ONLY</div>
+          <div class="s3-template">Write a [blog post] about [topic]. The tone should be [professional but engaging]. Include [3 key sections] with [examples and data]...</div>
+          <div class="s3-assembled">
+            <div class="s3-assembled-text">ROLE: Writer<br>TASK: Write a blog post about AI productivity...<br><br>Write a [blog post] about [topic]...</div>
+            <div class="s3-copy">[ COPY ]</div>
+          </div>
+        </div>
+        <!-- Step 4 — full log layout matching real app -->
+        <div class="sc" id="sc4">
+          <div class="slbl">EXECUTE & LOG YOUR RESULTS</div>
+          <div class="s4-section-lbl">YOUR PROMPT INPUT (AUTO-FILLED FROM STEP 3)</div>
+          <div class="s4-prompt-box">ROLE: Writer<br>DESCRIPTION: You write clear, engaging content...<br>TASK: Write a blog post about AI productivity tools for 2026<br><br>Write a [blog post] about [topic]. The tone should be...</div>
+          <div class="s4-section-lbl">AI OUTPUT / RESULT</div>
+          <div class="s4-output" id="s4out">Paste your AI output here...</div>
+          <div class="s4-section-lbl">REFERENCES / NOTES</div>
+          <div class="s4-notes">Links, file names, extra notes...</div>
+          <div class="s4-section-lbl">AI-GENERATED ATTACHMENTS</div>
+          <div class="s4-attachments">
+            <div class="s4-att-btn">+ CODE</div>
+            <div class="s4-att-btn">+ IMAGE URL</div>
+            <div class="s4-att-btn">+ FILE</div>
+            <div class="s4-att-btn">+ LINK</div>
+          </div>
+          <div class="s4-rating-row">
+            <span class="s4-rating-lbl">RATING:</span>
+            <span class="s4-stars" id="s4stars">★★★★☆</span>
+          </div>
+          <div class="s4-save-btn" id="s4save">[ · SAVE TO QUEST LOG — +3 XP · ]</div>
+          <div class="xp-pop-wrap" id="xpPopWrap"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-i">⚔ <span>Role System</span></div>
+  <div class="strip-i">📜 <span>Quest Templates</span></div>
+  <div class="strip-i">📡 <span>Session Log</span></div>
+  <div class="strip-i">🏆 <span>XP & Levels</span></div>
+  <div class="strip-i">🎨 <span>3 Themes</span></div>
+  <div class="strip-i">∞ <span>Free to Start</span></div>
+</div>
+
+<!-- ══ WHY ══ -->
+<section id="why">
+  <div class="sec">
+    <span class="stag">💡 WHY ROLEKEEPER</span>
+    <h2 class="sh">Most AI tools leave you<br><span class="mg">starting over every session.</span></h2>
+    <p class="ss">No context, no history, no progress. RoleKeeper fixes that — one place for your roles, prompts, logs, and growth.</p>
+    <div class="why-grid">
+      <div class="glass why-card rev">
+        <div class="wico">⚔</div>
+        <div class="wh">Roles That Remember</div>
+        <div class="wp">Build named AI personas — Engineer, Writer, Analyst — each with its own identity and prompt library. The right mindset, every time.</div>
+        <span class="wbadge">BUILT FOR PERSONAL USE</span>
+      </div>
+      <div class="glass why-card rev">
+        <div class="wico">📜</div>
+        <div class="wh">A Workflow That Stacks</div>
+        <div class="wp">Mission → Role → Quest → Log. Same structure every session. That's what turns scattered AI use into a skill that actually grows.</div>
+        <span class="wbadge">THE ROLEKEEPER METHOD</span>
+      </div>
+      <div class="glass why-card rev">
+        <div class="wico">📡</div>
+        <div class="wh">Nothing Gets Lost</div>
+        <div class="wp">Every session logged with your prompt, the output, a rating, and notes. Your best work stays searchable — stop re-inventing, start refining.</div>
+        <span class="wbadge">NOT IN OTHER PERSONAL TOOLS</span>
+      </div>
+      <div class="glass why-card rev">
+        <div class="wico">🏆</div>
+        <div class="wh">Progress You Can See</div>
+        <div class="wp">XP for every logged session. Unlimited levels, real titles. It's not cosmetic — the more you log, the sharper your prompting gets.</div>
+        <span class="wbadge">NOT IN OTHER PERSONAL TOOLS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ PS ══ -->
+<section>
+  <div class="sec">
+    <span class="stag">⚡ THE REAL PROBLEM</span>
+    <h2 class="sh">You're not bad at prompting.<br><span class="mg">You just have no system.</span></h2>
+    <div class="ps-grid">
+      <div class="glass ps-col rev">
+        <span class="pslbl bad">WITHOUT A SYSTEM</span>
+        <div class="ps-item"><span>❌</span>Re-typing the same prompt from memory every time</div>
+        <div class="ps-item"><span>❌</span>No record of what worked best last week</div>
+        <div class="ps-item"><span>❌</span>Switching AI tools and losing all context</div>
+        <div class="ps-item"><span>❌</span>No sense of whether you're actually improving</div>
+        <div class="ps-item"><span>❌</span>One generic persona for every kind of task</div>
+      </div>
+      <div class="glass ps-col rev">
+        <span class="pslbl good">WITH ROLEKEEPER</span>
+        <div class="ps-item"><span>✅</span>Your prompt library is one click away, by role</div>
+        <div class="ps-item"><span>✅</span>Every session rated and logged — searchable forever</div>
+        <div class="ps-item"><span>✅</span>Works with any AI — ChatGPT, Claude, Gemini, all of them</div>
+        <div class="ps-item"><span>✅</span>XP and levels show you the progress you're making</div>
+        <div class="ps-item"><span>✅</span>The right role means the right mindset before you even prompt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW ══ -->
+<section id="how">
+  <div class="sec" style="text-align:center;">
+    <span class="stag">📋 HOW IT WORKS</span>
+    <h2 class="sh">Four steps.<br><span class="mg">Same structure, every session.</span></h2>
+    <p class="ss" style="margin:0 auto 0;">Consistency is the skill. The structure makes it automatic.</p>
+    <div class="steps">
+      <div class="step rev">
+        <div class="step-n">1</div>
+        <div class="step-title">MISSION</div>
+        <div class="step-desc">Write what you need. Add context, links, or examples — whatever makes the task clear.</div>
+      </div>
+      <div class="step rev">
+        <div class="step-n">2</div>
+        <div class="step-title">ROLE</div>
+        <div class="step-desc">Pick who handles it. Each role brings its own identity and a library of prompts built for that perspective.</div>
+      </div>
+      <div class="step rev">
+        <div class="step-n">3</div>
+        <div class="step-title">QUEST</div>
+        <div class="step-desc">Choose a template, fill the blanks, copy the assembled prompt. Works with any AI you already use.</div>
+      </div>
+      <div class="step rev">
+        <div class="step-n">4</div>
+        <div class="step-title">LOG</div>
+        <div class="step-desc">Paste the output, rate it, add notes. Earn XP. Your sessions build into a searchable record of what works.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ROADMAP ══ -->
+<section id="roadmap">
+  <div class="sec">
+    <span class="stag">🗺 ROADMAP</span>
+    <h2 class="sh">Built in public.<br><span class="mg">No surprises.</span></h2>
+    <p class="ss">Every update is logged. Every feature comes from real usage.</p>
+    <div class="road-grid">
+      <div class="glass road-card rev" style="border-color:rgba(14,165,233,.35);box-shadow:0 0 28px var(--glow);"><span class="rs rs-live">LIVE NOW</span><span class="rico">🚀</span><div class="rh">Pre-Alpha Launch</div><div class="rp">Live today. No account, no install. Data in your browser. Share with friends, break things, tell Adrian what's broken.</div></div>
+      <div class="glass road-card rev"><span class="rs rs-live">LIVE</span><span class="rico">⚔</span><div class="rh">Role & Quest System</div><div class="rp">Full role management, quest board, prompt assembly.</div></div>
+      <div class="glass road-card rev"><span class="rs rs-live">LIVE</span><span class="rico">📡</span><div class="rh">Session Logging</div><div class="rp">Log every AI interaction with rating and notes.</div></div>
+      <div class="glass road-card rev"><span class="rs rs-live">LIVE</span><span class="rico">🏆</span><div class="rh">XP & Levels</div><div class="rp">Unlimited levels, titles, and a progress bar that actually means something.</div></div>
+      <div class="glass road-card rev"><span class="rs rs-live">LIVE</span><span class="rico">🎨</span><div class="rh">3 Themes</div><div class="rp">Light, Dark, and Arcade mode. Your workspace, your vibe.</div></div>
+      <div class="glass road-card rev"><span class="rs rs-soon">NEXT</span><span class="rico">🔐</span><div class="rh">Accounts & Cloud Sync</div><div class="rp">Supabase auth. Your data follows you everywhere, on any device.</div></div>
+      <div class="glass road-card rev"><span class="rs rs-soon">SOON</span><span class="rico">💬</span><div class="rh">Built-in Chat</div><div class="rp">Your API key. Run prompts directly inside RoleKeeper. No more tab switching.</div></div>
+      <div class="glass road-card rev"><span class="rs rs-soon">SOON</span><span class="rico">🔗</span><div class="rh">Quest Chains</div><div class="rp">Multi-step prompt pipelines. Define once, run every time.</div></div>
+      <div class="glass road-card rev"><span class="rs rs-plan">PLANNED</span><span class="rico">🧩</span><div class="rh">Chrome Extension</div><div class="rp">Your role library and quest templates wherever you browse.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SUPPORT ══ -->
+<section id="pricing">
+  <div class="sec" style="text-align:center;">
+    <span class="stag">💙 SUPPORT THE BUILD</span>
+    <h2 class="sh">Free to start.<br><span class="mg">Real costs to run.</span></h2>
+    <p class="ss" style="margin:0 auto 56px;">The core of RoleKeeper is free and will stay free. Cloud sync, built-in AI chat, and everything that needs real servers is coming as Pro. Right now it runs out of pocket — every coffee goes directly into keeping it running and building faster.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:640px;margin:0 auto;">
+      <div class="glass pc rev" style="padding:34px;">
+        <div style="font-size:36px;margin-bottom:12px;">⚔</div>
+        <div style="font-family:var(--fh);font-size:20px;font-weight:800;margin-bottom:8px;">Free Tier</div>
+        <div style="font-size:14px;color:var(--t2);line-height:1.75;margin-bottom:8px;">Roles, quests, logs, XP — the full core loop. No account, no server, your data stays in your browser.</div>
+        <div style="font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:1px;margin-bottom:24px;">ALWAYS FREE · NO CREDIT CARD</div>
+        <a href="https://rolekeeper.quest" class="btn-ghost" style="width:100%;justify-content:center;display:flex;" target="_blank">OPEN APP →</a>
+      </div>
+      <div class="glass pc founder rev" style="padding:34px;">
+        <div style="font-size:36px;margin-bottom:12px;">☕</div>
+        <div style="font-family:var(--fh);font-size:20px;font-weight:800;margin-bottom:8px;">Support the Build</div>
+        <div style="font-size:14px;color:var(--t2);line-height:1.75;margin-bottom:8px;">Help cover hosting, database, and infrastructure costs. Early supporters get Pro features first when they launch.</div>
+        <div style="font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:1px;margin-bottom:24px;">ONE-TIME OR $8/MONTH · VIA KO-FI</div>
+        <a href="https://ko-fi.com/rolekeeper" class="btn-mg" style="width:100%;justify-content:center;display:flex;" target="_blank">☕ SUPPORT ON KO-FI →</a>
+      </div>
+    </div>
+    <p style="font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:1px;margin-top:24px;">PRO TIER WITH CLOUD SYNC · BUILT-IN AI CHAT · CROSS-DEVICE — COMING SOON</p>
+  </div>
+</section>
+
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="sec">
+    <div class="about-grid">
+      <div>
+        <span class="stag">👤 THE BUILDER</span>
+        <h2 class="sh">One week.<br><span class="mg">Nights after work.</span></h2>
+        <p style="font-family:var(--fs);font-style:italic;font-size:17px;color:var(--t2);line-height:1.85;margin-bottom:18px;">RoleKeeper went from idea to working alpha in seven days. No team. No funding. Just a clear problem, a multi-AI workflow, and a lot of late nights in Santo Domingo.</p>
+        <p style="font-size:15px;color:var(--t2);line-height:1.8;margin-bottom:16px;">I kept losing my best prompts. Every session started from zero. No record of what worked, no way to get better. Every tool I tried was either built for developers or too simple to stick with.</p>
+        <p style="font-size:15px;color:var(--t2);line-height:1.8;margin-bottom:32px;">So I built what I needed. This is version one. There's a lot more coming — and if it helps you too, that means everything.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="https://rolekeeper.quest" class="btn-mg" target="_blank">TRY IT →</a>
+          <a href="mailto:support@rolekeeper.io" class="btn-ghost">SAY HELLO</a>
+        </div>
+      </div>
+      <div class="glass av-card rev">
+        <div class="av" style="background:none;box-shadow:none;padding:0;overflow:hidden;">
+          <img src="/assets/avatar.webp" alt="Adrian" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+        </div>
+        <div class="av-name">Adrian</div>
+        <div class="av-role">WEB DEV & AI BUILDER</div>
+        <span class="av-flag">🇩🇴</span>
+        <div class="av-stats">
+          <div class="av-s"><span class="av-n">1</span><span class="av-l">WEEK TO BUILD</span></div>
+          <div class="av-s"><span class="av-n" style="color:var(--green);font-size:14px;">LIVE</span><span class="av-l">PRE-ALPHA</span></div>
+          <div class="av-s"><span class="av-n">nightly</span><span class="av-l">SHIPPING</span></div>
+          <div class="av-s"><span class="av-n">🇩🇴</span><span class="av-l">SANTO DOMINGO</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ TESTIMONIALS ══ -->
+<section id="reviews">
+  <div class="sec" style="text-align:center;">
+    <span class="stag">💬 EARLY USERS</span>
+    <h2 class="sh">Real people.<br><span class="mg">Real sessions.</span></h2>
+    <div class="reviews-grid">
+      <div class="glass review-card rev">
+        <div class="rv-text">"Finally a way to actually keep track of what works. I reuse my best prompts instead of rewriting them every time."</div>
+        <div class="rv-author">— Early tester</div>
+        <div class="rv-role">Developer</div>
+      </div>
+      <div class="glass review-card rev">
+        <div class="rv-text">"The role system changed how I approach AI sessions. I think differently before I even type the prompt."</div>
+        <div class="rv-author">— Early tester</div>
+        <div class="rv-role">Content Creator</div>
+      </div>
+      <div class="glass review-card rev">
+        <div class="rv-text">"Built in a week and already more useful than tools that have been around for years. Waiting for cloud sync."</div>
+        <div class="rv-author">— Early tester</div>
+        <div class="rv-role">Product Manager</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="cta-sec">
+  <h2 class="cta-h">Your practice starts today.</h2>
+  <p class="cta-s">Pre-alpha is live. No account, no install. Just open and go.</p>
+  <div class="cta-live-wrap">
+    <a href="https://rolekeeper.quest" class="btn-mg" target="_blank" style="font-size:14px;padding:16px 40px;">
+      ⚔ Open RoleKeeper — Free
+    </a>
+    <p class="cta-note" style="margin-top:16px;">DATA STAYS IN YOUR BROWSER · NO SIGNUP REQUIRED · EXPORT ANYTIME</p>
+    <div class="cta-alpha-note rev">
+      <span class="pa-dot" style="display:inline-block;margin-right:8px;vertical-align:middle;"></span>
+      Pre-alpha means rough edges exist. Find one? 
+      <a href="mailto:support@rolekeeper.io" style="color:var(--mb);text-decoration:underline;">Tell Adrian directly.</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">
+    <img src="/assets/logo-default.png" class="logo-img-default" style="height:36px;width:auto;" alt="RoleKeeper">
+    <img src="/assets/logo-arcade.png" class="logo-img-arcade" style="display:none;height:28px;width:auto;" alt="RoleKeeper">
+  </div>
+  <div class="f-links">
+    <a href="#why">WHY</a><a href="#codex">CODEX</a><a href="#how">HOW</a>
+    <a href="#roadmap">ROADMAP</a><a href="mailto:support@rolekeeper.io">CONTACT</a><a href="/privacy">PRIVACY</a><a href="/terms">TERMS</a>
+    <a href="https://rolekeeper.quest" target="_blank">OPEN APP</a>
+  </div>
+  <div class="f-r">© 2026 <span>ROLEKEEPER</span></div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script data-cfasync="false">
+// ── THEME ──
+const TAGS={light:'LIGHT MODE',dark:'DARK MODE',arcade:'ARCADE MODE'};
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  try{localStorage.setItem('rk_t',t);}catch(e){}
+  const orbMap={light:'tl',dark:'td',arcade:'ta'};
+  ['tl','td','ta'].forEach(id=>{const el=document.getElementById(id);if(el) el.classList.remove('on');});
+  const active=document.getElementById(orbMap[t]);
+  if(active) active.classList.add('on');
+  const tag=document.getElementById('modeTag');
+  if(tag) tag.textContent=TAGS[t];
+  const fav=document.getElementById('favicon');
+  if(fav) fav.href=t==='arcade'?'/assets/favicon-arcade.png':'/assets/favicon.png';
+  document.querySelectorAll('.logo-img-default').forEach(el=>el.style.display=t==='arcade'?'none':'');
+  document.querySelectorAll('.logo-img-arcade').forEach(el=>el.style.display=t==='arcade'?'':'none');
+  initPts();
+}
+// Init orbs and simulation on DOM ready
+document.addEventListener('DOMContentLoaded',()=>{
+  // Apply saved theme
+  const saved=(()=>{try{return localStorage.getItem('rk_t')||'light';}catch(e){return 'light';}})();
+  setTheme(saved);
+
+  // Wire theme orbs
+  document.getElementById('tl').addEventListener('click',()=>setTheme('light'));
+  document.getElementById('td').addEventListener('click',()=>setTheme('dark'));
+  document.getElementById('ta').addEventListener('click',()=>setTheme('arcade'));
+
+  // Wire banner close
+  const closeBtn=document.querySelector('.pa-close');
+  if(closeBtn) closeBtn.addEventListener('click',()=>{
+    document.getElementById('paBanner').style.display='none';
+    try{localStorage.setItem('rk_pa_dismissed','1');}catch(e){}
+  });
+  const dismissed=(()=>{try{return localStorage.getItem('rk_pa_dismissed');}catch(e){return null;}})();
+  if(dismissed){const b=document.getElementById('paBanner');if(b) b.style.display='none';}
+
+  // Start simulation
+  setTimeout(typeIt,1200);
+
+  // Scroll reveal
+  const obs1=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs1.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.rev').forEach(el=>obs1.observe(el));
+
+  // Dock active state
+  const sections=['why','codex','how','roadmap','pricing','about'];
+  const obs2=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll('.dock-link').forEach(l=>l.classList.remove('active'));
+        const link=document.querySelector(`.dock-link[data-section="${e.target.id}"]`);
+        if(link) link.classList.add('active');
+      }
+    });
+  },{threshold:.4});
+  sections.forEach(id=>{const el=document.getElementById(id);if(el) obs2.observe(el);});
+});
+
+// ── PARTICLES ──
+function initPts(){
+  const c=document.getElementById('pts');
+  if(!c) return; // DOM not ready yet
+  c.innerHTML='';
+  if(document.documentElement.getAttribute('data-theme')!=='arcade') return;
+  const cols=['#00f5ff','#ff2d78','#ffe600','#c555ff','#39ff14'];
+  for(let i=0;i<40;i++){
+    const p=document.createElement('div');p.className='pt';
+    const cl=cols[Math.floor(Math.random()*cols.length)];
+    const s=Math.random()*2+1;
+    p.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${cl};box-shadow:0 0 ${s*3}px ${cl};animation-duration:${Math.random()*15+8}s;animation-delay:${Math.random()*10}s;--dx:${(Math.random()-.5)*80}px`;
+    c.appendChild(p);
+  }
+}
+
+// ── SIMULATION ──
+const MSG="Write a blog post about AI productivity tools for 2026";
+let ci=0,st;
+function typeIt(){
+  const el=document.getElementById('sfield');if(!el) return;
+  if(ci<=MSG.length){
+    el.innerHTML=MSG.slice(0,ci)+'<span class="cursor"></span>';
+    ci++;st=setTimeout(typeIt,55);
+  } else {setTimeout(()=>goS(2),1200);}
+}
+function goS(s){
+  [1,2,3,4].forEach(n=>{
+    const p=document.getElementById('sp'+n),c=document.getElementById('sc'+n);
+    if(!p||!c) return;
+    p.classList.remove('act','done');c.classList.remove('show');
+    if(n<s) p.classList.add('done');
+    if(n===s){p.classList.add('act');c.classList.add('show');}
+  });
+  if(s===4){
+    setTimeout(()=>{
+      const out=document.getElementById('s4out');
+      if(out){out.style.color='var(--t1)';out.style.fontStyle='normal';out.textContent='Here are the top AI productivity tools reshaping workflows in 2026: RoleKeeper for structured prompting, Perplexity for research, Cursor for coding, and Claude for deep reasoning...';}
+    },600);
+    setTimeout(()=>{
+      const btn=document.getElementById('s4save');
+      if(btn){btn.style.color='var(--green)';btn.style.borderColor='rgba(16,185,129,.5)';btn.style.background='rgba(16,185,129,.07)';btn.textContent='[ ✓ SAVED TO QUEST LOG ]';btn.style.animation='none';}
+      const wrap=document.getElementById('xpPopWrap');
+      if(wrap){
+        wrap.innerHTML='';
+        const pop=document.createElement('div');
+        pop.className='xp-pop';pop.textContent='+3 XP';
+        const lvl=document.createElement('div');
+        lvl.className='xp-level';
+        lvl.style.cssText='transform:translateX(-50%) translateY(-20px);';
+        lvl.textContent='LEVEL 4 · QUEST ARCHITECT';
+        wrap.appendChild(pop);wrap.appendChild(lvl);
+      }
+    },2000);
+    setTimeout(resetSim,5500);
+  } else {setTimeout(()=>goS(s+1),s===1?100:2400);}
+}
+function resetSim(){
+  ci=0;clearTimeout(st);
+  [1,2,3,4].forEach(n=>{
+    const p=document.getElementById('sp'+n),c=document.getElementById('sc'+n);
+    if(p) p.classList.remove('act','done');
+    if(c) c.classList.remove('show');
+  });
+  const sp1=document.getElementById('sp1'),sc1=document.getElementById('sc1');
+  if(sp1) sp1.classList.add('act');
+  if(sc1) sc1.classList.add('show');
+  const wrap=document.getElementById('xpPopWrap');if(wrap) wrap.innerHTML='';
+  const out=document.getElementById('s4out');
+  if(out){out.style.color='var(--t3)';out.style.fontStyle='italic';out.textContent='Paste your AI output here...';}
+  const btn=document.getElementById('s4save');
+  if(btn){btn.style.color='var(--mp)';btn.style.borderColor='rgba(217,70,239,.4)';btn.style.background='rgba(217,70,239,.06)';btn.textContent='[ · SAVE TO QUEST LOG — +3 XP · ]';btn.style.animation='';}
+  setTimeout(typeIt,800);
+}
+// ── EMAIL (kept for potential future use) ──
+function doEmail(){
+  const v=document.getElementById('em');if(!v) return;
+  if(!v.value||!v.value.includes('@')) return;
+  const l=JSON.parse(localStorage.getItem('rk_wl')||'[]');
+  l.push({email:v.value,date:new Date().toISOString()});
+  localStorage.setItem('rk_wl',JSON.stringify(l));
+  document.querySelector('.email-row').style.display='none';
+  document.querySelector('.cta-note').style.display='none';
+  document.getElementById('ctaOk').style.display='block';
+}
+</script>
+</body>
+</html>
