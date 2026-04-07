@@ -27,5 +27,17 @@ dist-ssr
 .env
 .env.local
 
-# Claude
-.claude/settings.local.json
+# Claude Code
+.claude/
+
+# OS files
+desktop.ini
+
+# Editor / workspace
+*.code-workspace
+
+# Archives
+*.zip
+
+# Cloudflare build cache
+.wrangler/
