@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+# Rolekeeper.io
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Marketing and community site for [Rolekeeper Quest](https://rolekeeper.quest) -- an AI session management platform. Features landing pages, user dashboards, guild directories, leaderboards, and community forums.
 
-Currently, two official plugins are available:
+**Live:** [rolekeeper.io](https://rolekeeper.io)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+- **Frontend:** React 19 + TypeScript + Vite 8
+- **Routing:** React Router 7
+- **Animations:** Framer Motion
+- **Auth & Database:** Supabase
+- **SEO:** React Helmet
+- **Hosting:** Cloudflare Workers
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Pages
 
-## Expanding the ESLint configuration
+### Public
+- **Landing** -- Hero with interactive simulation, features, testimonials, pricing, and roadmap
+- **Pricing** -- Free tier + Pro tier ($5/mo) details and donation option
+- **Guide** -- How-it-works documentation
+- **Changelog & Roadmap** -- Product updates and upcoming features
+- **Privacy & Terms** -- Legal pages
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Authenticated
+- **Dashboard** -- User stats: quests completed, XP, level, streak, guild memberships
+- **Profile** -- Public user profiles by username
+- **Guilds** -- Browse and join community guilds
+- **Leaderboard** -- Global user rankings
+- **Community Forums** -- Discussion categories for tips, feature requests, bug reports, and showcase
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Create .env with your Supabase credentials
+cp .env.example .env
+
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Design System
+
+Three themes (Light, Dark, Arcade) using CSS variables and glassmorphism. Bilingual support for English and Spanish.
+
+## Deployment
+
+```bash
+npm run build
+npx wrangler deploy
 ```
